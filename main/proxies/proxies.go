@@ -3,7 +3,6 @@ package proxies
 import (
 	e "XrayHelper/main/errors"
 	"XrayHelper/main/proxies/tproxy"
-	"XrayHelper/main/proxies/tun"
 )
 
 const tagProxies = "proxies"
@@ -18,8 +17,6 @@ func NewProxy(method string) (ProxyMethod, error) {
 	switch method {
 	case "tproxy":
 		return new(tproxy.Tproxy), nil
-	case "tun", "tun2socks":
-		return new(tun.Tun), nil
 	default:
 		return nil, e.New("unsupported proxy method " + method).WithPrefix(tagProxies)
 	}

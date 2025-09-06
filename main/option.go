@@ -12,17 +12,12 @@ import (
 )
 
 var Option struct {
-	BypassSelf       bool   `short:"b" long:"bypass-self" description:"bypass xrayhelper self network traffic (tproxy/tun2socks only)"`
-	ConfigFilePath   string `short:"c" long:"config" default:"/data/adb/xray/xrayhelper.yml" description:"specify configuration file"`
-	CoreStartTimeout int    `short:"t" long:"core-start-timeout" default:"15" description:"core listen check timeout (second)"`
+	ConfigFilePath   string `short:"c" long:"config" description:"specify configuration file"`
 	VerboseFlag      bool   `short:"v" long:"verbose" description:"show verbose debug information"`
 	VersionFlag      bool   `short:"V" long:"version" description:"show current version"`
 
 	Service commands.ServiceCommand `command:"service" description:"control core service"`
 	Proxy   commands.ProxyCommand   `command:"proxy" description:"control system proxy"`
-	Update  commands.UpdateCommand  `command:"update" description:"update core, adghome, tun2socks, geodata, yacd-meta, metacubexd or subscribe"`
-	Switch  commands.SwitchCommand  `command:"switch" description:"switch proxy node or clash config"`
-	Api     commands.ApiCommand     `command:"api" description:"xrayhelper api for webui"`
 }
 
 // LoadOption load Option, the program entry
@@ -35,8 +30,6 @@ func LoadOption() (exitCode int) {
 	}
 	log.Verbose = &Option.VerboseFlag
 	builds.ConfigFilePath = &Option.ConfigFilePath
-	builds.CoreStartTimeout = &Option.CoreStartTimeout
-	builds.BypassSelf = &Option.BypassSelf
 	parser := flags.NewParser(&Option, flags.HelpFlag|flags.PassDoubleDash)
 	if _, err := parser.Parse(); err != nil {
 		var flagsError *flags.Error

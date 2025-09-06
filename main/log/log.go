@@ -6,8 +6,6 @@ import (
 	"os/exec"
 	"strings"
 	"time"
-
-	"github.com/fatih/color"
 )
 
 var Verbose *bool
@@ -27,14 +25,14 @@ func init() {
 // HandleError record error log
 func HandleError(v any) {
 	if str := serial.ToString(v); str != "" {
-		fmt.Println(time.Now().Format("2006-01-02 15:04:05"), color.RedString("ERROR"), ":", str)
+		fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "ERROR", ":", str)
 	}
 }
 
 // HandleInfo record info log
 func HandleInfo(v any) {
 	if str := serial.ToString(v); str != "" {
-		fmt.Println(time.Now().Format("2006-01-02 15:04:05"), color.GreenString("INFO"), ":", str)
+		fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "INFO", ":", str)
 	}
 }
 
@@ -42,7 +40,7 @@ func HandleInfo(v any) {
 func HandleDebug(v any) {
 	if *Verbose {
 		if str := serial.ToString(v); str != "" {
-			fmt.Println(time.Now().Format("2006-01-02 15:04:05"), color.BlueString("DEBUG"), ":", str)
+			fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "DEBUG", ":", str)
 		}
 	}
 }

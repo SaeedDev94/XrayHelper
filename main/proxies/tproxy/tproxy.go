@@ -322,6 +322,10 @@ func createMangleChain(ipv6 bool) error {
 			return e.New("apply ignore interface "+ignore+" on "+currentProto+" mangle chain XRAY failed, ", err).WithPrefix(tagTproxy)
 		}
 	}
+	// bypass ntp
+	if err := currentIpt.Insert("mangle", "XRAY", 1, "-p", "udp", "--dport", "123", "-j", "RETURN"); err != nil {
+		return e.New("apply mangle chain XRAY bypass ntp failed, ", err).WithPrefix(tagTproxy)
+	}
 	return nil
 }
 
